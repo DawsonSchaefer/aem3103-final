@@ -60,10 +60,24 @@
     plot(xa(:,4),xa(:,3), 'k', xe(:,4),xe(:,3), 'r', xf(:,4),xf(:,3), 'g')
     xlabel('Range, m'), ylabel('Height, m'), grid
     legend('Initial V = 3.55 m/s', 'Initial V = 2 m/s', 'Initial V = 7.5 m/s');
-    subplot(2,2,2)
+    subplot(2,2,3)
     plot(xa(:,4),xa(:,3),'k', xg(:,4), xg(:,3), 'r', xh(:,4), xh(:,3), 'g')
     xlabel('Range, m'), ylabel('Height, m'), grid
     legend('Initial Angle = -0.18 rad','Initial Angle = -0.5 rad','Initial Angle = 0.4 rad')
+
+    Vrange = [2,7.5];
+    Grange = [-0.5,0.4];
+    figure
+    hold on
+    for i = 1:100
+        Vrand = Vrange(1) + 5.5*rand(1);
+        Grand = Grange(1) + 0.9*rand(1);
+        
+        xrand0 = [Vrand; Grand; H; R];
+        [trand,xrand] = ode23('EqMotion', tspan, xrand0);
+        plot(xrand(:,4),xrand(:,3))
+    end
+    xlabel('Range, m'), ylabel('Height, m'), grid
 
 	%figure
 	%subplot(2,2,1)
