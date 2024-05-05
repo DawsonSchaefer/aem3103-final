@@ -29,7 +29,12 @@
 	tspan	=	[to tf];
 	xo		=	[V;Gam;H;R];
 	[ta,xa]	=	ode23('EqMotion',tspan,xo);
-	
+
+    x3 = [V; 2.78*Gam; H; R];
+    [tg,xg] = ode23('EqMotion', tspan, x3);
+	x4 = [V; -2.78*Gam; H; R];
+    [th,xh] = ode23('EqMotion', tspan, x4);
+
 %	b) Oscillating Glide due to Zero Initial Flight Path Angle
 	xo		=	[V;0;H;R];
 	[tb,xb]	=	ode23('EqMotion',tspan,xo);
@@ -37,25 +42,39 @@
 %	c) Effect of Increased Initial Velocity
 	xo		=	[1.5*V;0;H;R];
 	[tc,xc]	=	ode23('EqMotion',tspan,xo);
+    x1 = [0.563*V;0;H;R];
+    [te,xe] = ode23('EqMotion',tspan,x1);
+    x2 = [2.11*V;0;H;R];
+    [tf,xf] = ode23('EqMotion',tspan,x2);
 
 %	d) Effect of Further Increase in Initial Velocity
 	xo		=	[3*V;0;H;R];
 	[td,xd]	=	ode23('EqMotion',tspan,xo);
 	
-	figure
-	plot(xa(:,4),xa(:,3),xb(:,4),xb(:,3),xc(:,4),xc(:,3),xd(:,4),xd(:,3))
-	xlabel('Range, m'), ylabel('Height, m'), grid
+	%figure
+	%plot(xa(:,4),xa(:,3),xb(:,4),xb(:,3),xc(:,4),xc(:,3),xd(:,4),xd(:,3))
+	%xlabel('Range, m'), ylabel('Height, m'), grid
 
-	figure
-	subplot(2,2,1)
-	plot(ta,xa(:,1),tb,xb(:,1),tc,xc(:,1),td,xd(:,1))
-	xlabel('Time, s'), ylabel('Velocity, m/s'), grid
-	subplot(2,2,2)
-	plot(ta,xa(:,2),tb,xb(:,2),tc,xc(:,2),td,xd(:,2))
-	xlabel('Time, s'), ylabel('Flight Path Angle, rad'), grid
-	subplot(2,2,3)
-	plot(ta,xa(:,3),tb,xb(:,3),tc,xc(:,3),td,xd(:,3))
-	xlabel('Time, s'), ylabel('Altitude, m'), grid
-	subplot(2,2,4)
-	plot(ta,xa(:,4),tb,xb(:,4),tc,xc(:,4),td,xd(:,4))
-	xlabel('Time, s'), ylabel('Range, m'), grid
+    figure
+    subplot(2,2,1)
+    plot(xa(:,4),xa(:,3), 'k', xe(:,4),xe(:,3), 'r', xf(:,4),xf(:,3), 'g')
+    xlabel('Range, m'), ylabel('Height, m'), grid
+    legend('Initial V = 3.55 m/s', 'Initial V = 2 m/s', 'Initial V = 7.5 m/s');
+    subplot(2,2,2)
+    plot(xa(:,4),xa(:,3),'k', xg(:,4), xg(:,3), 'r', xh(:,4), xh(:,3), 'g')
+    xlabel('Range, m'), ylabel('Height, m'), grid
+    legend('Initial Angle = -0.18 rad','Initial Angle = -0.5 rad','Initial Angle = 0.4 rad')
+
+	%figure
+	%subplot(2,2,1)
+	%plot(ta,xa(:,1),tb,xb(:,1),tc,xc(:,1),td,xd(:,1))
+	%xlabel('Time, s'), ylabel('Velocity, m/s'), grid
+	%subplot(2,2,2)
+	%plot(ta,xa(:,2),tb,xb(:,2),tc,xc(:,2),td,xd(:,2))
+	%xlabel('Time, s'), ylabel('Flight Path Angle, rad'), grid
+	%subplot(2,2,3)
+	%plot(ta,xa(:,3),tb,xb(:,3),tc,xc(:,3),td,xd(:,3))
+	%xlabel('Time, s'), ylabel('Altitude, m'), grid
+	%subplot(2,2,4)
+	%plot(ta,xa(:,4),tb,xb(:,4),tc,xc(:,4),td,xd(:,4))
+	%xlabel('Time, s'), ylabel('Range, m'), grid
