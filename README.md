@@ -18,7 +18,7 @@
   path were calculated and plotted in Fig.3.
  
   # Code Listing
-  [EqMotion.m](EqMotion.m) : Outputs the fourth-order equations of aircraft motion /n
+  [EqMotion.m](EqMotion.m) : Outputs the fourth-order equations of aircraft motion  
   [PaperPlane.m](PaperPlane.m) : Graphs paper plane flight paths and the average rate of change in height and range over time
   
   # Figures
