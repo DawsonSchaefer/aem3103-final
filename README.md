@@ -24,7 +24,7 @@
   # Figures
 
   ## Fig. 1: Single Parameter Variation
-  ![Plot](PlotVary.png)
+  ![Plot](PlotVary.jpg)
 
   Flight path with variation in initial velocity and flight path angle
 
