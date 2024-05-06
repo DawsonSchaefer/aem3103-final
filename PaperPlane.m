@@ -80,7 +80,7 @@
         
         xrand0 = [Vrand; Grand; H; R];
         [trand,xrand] = ode23('EqMotion', tspan, xrand0);
-        plot(xrand(:,4),xrand(:,3))
+        plot(xrand(:,4),xrand(:,3), 'g')
 
         t_arr(i,:) = trand;
         R_arr(i,:) = xrand(:,4);
@@ -94,10 +94,7 @@
     q = polyfit(t_arr, H_arr, 15);
     H_fit = polyval(q, tspan);
 
-    figure
-    plot(R_fit, H_fit);
-    xlabel('Range (m)'); ylabel('Height (m)'), grid;
-    title('Average Fligth Path of Simulation')
+    plot(R_fit, H_fit, 'r', 'LineWidth', 2);
     
     Hdiff = diff(H_fit);
     Hdiff(101) = Hdiff(100);
