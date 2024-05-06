@@ -60,15 +60,20 @@
     plot(xa(:,4),xa(:,3), 'k', xe(:,4),xe(:,3), 'r', xf(:,4),xf(:,3), 'g')
     xlabel('Range, m'), ylabel('Height, m'), grid
     legend('Initial V = 3.55 m/s', 'Initial V = 2 m/s', 'Initial V = 7.5 m/s');
+    title('Varying Initial Velocity');
+
     subplot(2,2,3)
     plot(xa(:,4),xa(:,3),'k', xg(:,4), xg(:,3), 'r', xh(:,4), xh(:,3), 'g')
     xlabel('Range, m'), ylabel('Height, m'), grid
     legend('Initial Angle = -0.18 rad','Initial Angle = -0.5 rad','Initial Angle = 0.4 rad')
+    title('Varying Initial Angle');
+    sgtitle('Differences in Flight Path when Varying Initial Conditions')
 
     Vrange = [2,7.5];
     Grange = [-0.5,0.4];
     figure
     hold on
+    tspan = [0:0.06:6];
     for i = 1:100
         Vrand = Vrange(1) + 5.5*rand(1);
         Grand = Grange(1) + 0.9*rand(1);
@@ -76,8 +81,40 @@
         xrand0 = [Vrand; Grand; H; R];
         [trand,xrand] = ode23('EqMotion', tspan, xrand0);
         plot(xrand(:,4),xrand(:,3))
+
+        t_arr(i,:) = trand;
+        R_arr(i,:) = xrand(:,4);
+        H_arr(i,:) = xrand(:,3);
     end
     xlabel('Range, m'), ylabel('Height, m'), grid
+    title('Flight Path Simulations Randomly Varying V, \gamma')
+
+    p = polyfit(t_arr, R_arr, 10);
+    R_fit = polyval(p, tspan);
+    q = polyfit(t_arr, H_arr, 15);
+    H_fit = polyval(q, tspan);
+
+    figure
+    plot(R_fit, H_fit);
+    xlabel('Range (m)'); ylabel('Height (m)'), grid;
+    title('Average Fligth Path of Simulation')
+    
+    Hdiff = diff(H_fit);
+    Hdiff(101) = Hdiff(100);
+    Rdiff = diff(R_fit);
+    Rdiff(101) = Rdiff(100);
+
+    figure
+    subplot(2,2,1);
+    plot(tspan,Hdiff);
+    xlabel('Time (s)'); ylabel('Height Rate of Change (m/s)')
+    title('Average Rate of Change in Height over Time');
+    subplot(2,2,3);
+    plot(tspan,Rdiff);
+    xlabel('Time (s)'); ylabel('Range Rate of Change (m/s)')
+    title('Average Rate of Change in Range over Time');
+
+
 
 	%figure
 	%subplot(2,2,1)
