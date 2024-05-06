@@ -12,7 +12,7 @@
   the Monte Carlo simulation. An initial velocity above nominal caused the plane quickly increase in height before 
   quickly decreasing in height, whereas an initial velocity below nominal caused the plane to slowly decrease in height.
   Varying the initial flight path angle had a similar but lesser effect. The above nominal flight path angle caused an
-  increase in height before quickly dampening out and the below nomina flight path angle caused a decrease in height
+  increase in height before quickly dampening out and the below nominal flight path angle caused a decrease in height
   before returning to nominal (Fig.1). The average flight path in the Monte Carlo simulation increased in height before decreasing
   and returning to a fairly nominal flight path as seen in Fig.2. The rate of change in height and range of the average flight
   path were calculated and plotted in Fig.3.
